@@ -42,7 +42,7 @@ function initializeApp(jsonData) {
 
     const navLinks = nav.querySelectorAll('a');
 
-    // ページコンテンツを描画する関数 (内容は前回と同じ)
+    // ページコンテンツを描画する関数
     const renderContent = (index) => {
         content.innerHTML = ''; // コンテンツをクリア
         const section = jsonData.sections[index];
@@ -282,9 +282,9 @@ function initializeApp(jsonData) {
 
                 if (cat.details) {
                     const block = document.createElement('blockquote');
-                    block.innerHTML = Object.entries(cat.details)
-                        .map(([key, value]) => `<strong>${key}:</strong> ${value.replace(/\n/g, '<br>')}`)
-                        .join('<br>');
+                    // ★ 修正点 1 ★
+                    // detailsが文字列なので、そのまま改行を<br>に変換
+                    block.innerHTML = cat.details.replace(/\n/g, '<br>');
                     content.appendChild(block);
                 }
 
@@ -294,9 +294,9 @@ function initializeApp(jsonData) {
                         modelTitle.textContent = `モデル: ${type.model}`;
                         content.appendChild(modelTitle);
                         const block = document.createElement('blockquote');
-                        block.innerHTML = Object.entries(type.details)
-                            .map(([key, value]) => `<strong>${key}:</strong> ${value.replace(/\n/g, '<br>')}`)
-                            .join('<br>');
+                        // ★ 修正点 2 ★
+                        // type.detailsが文字列なので、そのまま改行を<br>に変換
+                        block.innerHTML = type.details.replace(/\n/g, '<br>');
                         content.appendChild(block);
                     });
                 }
